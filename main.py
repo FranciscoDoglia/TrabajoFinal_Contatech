@@ -24,4 +24,3 @@ class Cliente: #Esta clase es prueba para ver si logro obtener la variable desde
         self.documento= documento
 clientex = Cliente(datos_cte(request_json["nombre"]), datos_cte(request_json["documento"]))
 print(clientex)
-#da error porque no esta bien creada la base de datos
