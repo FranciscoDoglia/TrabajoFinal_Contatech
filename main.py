@@ -11,8 +11,6 @@ def datos_cte():
     request_json = request.json
     # print(request_json)
     return f'Hello {request_json["nombre"]}, ID {request_json["documento"]}'
-    y = json.dumps(request_json["nombre"])
-
     #PARA PROBAR USAR API https://inspector.swagger.io/builder
 
 if __name__ == '__main__':
