@@ -20,3 +20,13 @@ AttributeError: type object 'Cliente' has no attribute 'query'
 127.0.0.1 - - [21/Jun/2022 07:45:58] "GET /consulta?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 304 -
 127.0.0.1 - - [21/Jun/2022 07:45:58] "GET /consulta?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 304 -
 127.0.0.1 - - [21/Jun/2022 07:45:58] "GET /consulta?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 304 -
+
+Otro error:
+Cuando quiero hacer que Cliente(db.Base) tenga 3 columnas (id, nombre, documento), e ingresar solamente nombre y documento y que id sea primary key, me da el siguiente error
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "documento" of relation "clientes" does not exist
+LINE 1: INSERT INTO clientes (nombre, documento) VALUES ('marcos', 1...
+                                      ^
+
+[SQL: INSERT INTO clientes (nombre, documento) VALUES (%(nombre)s, %(documento)s) RETURNING clientes.id]
+[parameters: {'nombre': 'marcos', 'documento': 1234}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
