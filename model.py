@@ -6,12 +6,12 @@ from sqlalchemy import Column, String, Integer, ForeignKey
 class Cliente(db.Base):
     __tablename__ = 'clientes'
     # tipo_iva = ['RI', 'MONO', 'CF', 'EXE']
-    id = Column(Integer, primary_key=True) #suplante el ID que en realidad deberpia ser un num d ebase de datos
+    id = Column(Integer, primary_key=True)
     nombre = Column(String, nullable=False)
     documento = Column(String(13), nullable=False)
-    # comprobantes = relationship('Factura')
+    comprobantes = relationship('Factura', backref='client')
 
-    def __init__(self, nombre: str, documento: str): #, documento: str):
+    def __init__(self, nombre: str, documento: str):
         super(Cliente, self).__init__()
         self.nombre = nombre
         self.documento = documento
@@ -21,38 +21,28 @@ class Cliente(db.Base):
         return f'Cliente: {self.id}, {self.nombre}, {self.documento}'
 
     def __repr__(self):
-        return f'Taks: {self.id}, {self.nombre}, {self.documento}'
+        return f'Cliente: {self.id}, {self.nombre}, {self.documento}'
 
     # def __validar_iva(self):
     #     #if t_iva pertenece a tipo_iva, true; else = error
     #     pass
 
-# class Factura(db.Base): #Podría guardarlas en la base de datos también
-#     __tablename__ = 'facturas'
-#     id = Column(Integer, primary_key=True)
-#     client_id = Column(String, ForeignKey('clientes.id'))
-#     client_name = Column(String, ForeignKey('clientes.nombre'))
-#     # client_documento = Column(String, ForeignKey(''))
-#     cliente = relationship('Cliente', backref= 'facturas')
-#
-#     def __init__(self, id: str):
-#         super(Factura, self).__init__()
-#         self.id = id
+class Factura(db.Base): #Podría guardarlas en la base de datos también
+    __tablename__ = 'facturas'
+    id = Column(Integer, primary_key=True)
+    numero = Column(String, nullable=False)
+    client_id = Column(String, ForeignKey('clientes.id'))
+    # client_name = Column(String, ForeignKey('clientes.nombre'))
+    # client_documento = Column(String, ForeignKey('clientes.documento'))
+    # client_rel_id = relationship('Cliente', foreign_keys=[client_id])
+    # client_rel_name = relationship('Cliente', foreign_keys=[client_name])
+    # client_rel_document = relationship('Cliente', foreign_keys=[client_documento])
+
+    def __init__(self, numero: str):
+        super(Factura, self).__init__()
+        self.numero = numero
 
 
 
-    # def __devolver_total(self) -> float:
-    #     total = self.netog * (1 + self.alic_iva)
-    #     return total
 
-    # @property
-    # def total(self):
-    #     return self.__devolver_total()
-
-    # def print_fc(self):     # A partir de tomar una plantilla modelo de factura
-    #     print(self.client_name)
-    #     print(self.client_documento)
-    #     # print(self.cliente.tipo_iva)
-    #     # print(self.total)
-    #     pass
 
