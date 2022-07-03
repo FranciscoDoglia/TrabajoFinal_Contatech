@@ -117,10 +117,10 @@ def modify_factura(id):
     numero = request_json['numero']
     ng = request_json['neto_gravado']
     iva = request_json['iva']
-    factura_id = db.session.query(Factura).filter_by(id = id).update({"numero" : numero, "neto_gravado":ng, "iva":iva})
+    factura_id = db.session.query(Factura).filter_by(id = id).update({"numero" : numero, "neto_gravado": ng, "alic_iva": iva})
     db.session.commit()
-    return f'''La factura ID:{id} se ha modificado.\nSu numero actual es: {numero}, el monto total: {factura_id.total}, 
-    su monto neto gravado: {ng}, y su IVA: {factura_id.iva}.'''
+    return f'''La factura ID:{id} se ha modificado.\nSu numero actual es: {numero}. El total de la factura es {ng * (1+(iva/100))},
+    el monto neto gravado es: {ng} y el IVA es {ng * (iva/100)}'''
 
 
 
@@ -128,4 +128,4 @@ if __name__ == '__main__':
     app.run(debug=True, port=8080)
     db.Base.metadata.create_all(db.engine)
     run()
-
+ 
